@@ -12,14 +12,14 @@
 
   /* ============ TOKENS ============ */
   :root{
-    --paper:#F2EEE3;        /* page ground - warm stone-cream */
-    --card:#FBF8F1;         /* lifted card surface */
-    --card-deep:#EAE3D2;    /* recessed / placeholder fill */
-    --ink:#221E17;          /* primary text - warm near-black */
-    --ink-soft:#74695A;     /* secondary text */
-    --ink-faint:#A39C8A;    /* tertiary / placeholder text */
-    --tech:#3E6B5F;         /* Tech & AI accent - pine */
-    --outdoor:#A35C32;      /* Outdoor & Adventure accent - clay */
+    --paper:#F2EEE3;
+    --card:#FBF8F1;
+    --card-deep:#EAE3D2;
+    --ink:#221E17;
+    --ink-soft:#74695A;
+    --ink-faint:#A39C8A;
+    --tech:#3E6B5F;
+    --outdoor:#A35C32;
     --line: rgba(34,30,23,.14);
     --line-strong: rgba(34,30,23,.26);
     --r-s:8px; --r-m:18px; --r-l:32px;
@@ -89,8 +89,6 @@
   }
   .mute-btn:hover{ background:rgba(34,30,23,.7); }
   .mute-btn svg{ width:14px; height:14px; }
-  .play-btn{ width:46px; height:46px; border-radius:50%; border:1.5px solid currentColor; display:flex; align-items:center; justify-content:center; color:var(--ink-faint); }
-  .play-btn svg{ width:13px; margin-left:2px; }
   .vindex{ position:absolute; top:.85rem; left:.95rem; font-weight:600; font-size:.72rem; color:rgba(255,255,255,.75); z-index:3; }
   .vtag{
     position:absolute; top:.85rem; right:.85rem;
@@ -99,7 +97,6 @@
     background:rgba(0,0,0,.45); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
     z-index:3;
   }
-
   .vcard-meta{ margin-top:.85rem; }
   .vcard-brand{ font-weight:600; font-size:1rem; }
   .vcard-hook{ font-family:var(--serif); font-style:italic; color:var(--ink-faint); font-size:.98rem; margin-top:.2rem; }
@@ -121,6 +118,12 @@
   .lane-section[data-lane="outdoor"]{ border-top:1px solid var(--line); }
   .lane-section h2{ font-size:clamp(1.8rem,3.2vw,2.4rem); margin-bottom:2.25rem; }
   .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(185px,1fr)); gap:clamp(1.2rem,2.5vw,1.85rem); }
+  /* 2 columns on mobile */
+  @media (max-width:600px){
+    .grid{ grid-template-columns:repeat(2,1fr); gap:.75rem; }
+    .vcard-brand{ font-size:.88rem; }
+    .vcard-hook{ font-size:.82rem; }
+  }
 
   /* ============ ABOUT ============ */
   .about{ padding-block:clamp(4rem,8vw,6.5rem); border-top:1px solid var(--line); }
@@ -151,7 +154,7 @@
   .rate-left .label{ font-weight:600; font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); }
   .rate-value{ font-weight:700; font-size:1.55rem; margin-top:.25rem; }
   .rate-note{ font-size:.85rem; color:var(--ink-soft); text-align:left; }
-  @media (max-width:760px){ .steps{ grid-template-columns:1fr 1fr; } .rate-note{ text-align:left; } }
+  @media (max-width:760px){ .steps{ grid-template-columns:1fr 1fr; } }
   @media (max-width:480px){ .steps{ grid-template-columns:1fr; } }
 
   /* ============ CONTACT ============ */
@@ -162,6 +165,56 @@
 
   .foot{ padding-block:1.5rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
   .foot, .foot a{ font-size:.7rem; color:var(--ink-faint); letter-spacing:.03em; }
+
+  /* ============ VIDEO MODAL ============ */
+  .vmodal{
+    display:none; position:fixed; inset:0; z-index:500;
+    align-items:center; justify-content:center;
+  }
+  .vmodal.is-open{ display:flex; }
+  .vmodal-backdrop{
+    position:absolute; inset:0;
+    background:rgba(0,0,0,.82);
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  .vmodal-inner{
+    position:relative; z-index:1;
+    width:min(88vw,340px);
+    border-radius:var(--r-m); overflow:hidden;
+    box-shadow:0 32px 80px rgba(0,0,0,.55);
+    animation:modal-in .28s var(--ease) both;
+  }
+  @keyframes modal-in{
+    from{ opacity:0; transform:scale(.92) translateY(12px); }
+    to{ opacity:1; transform:scale(1) translateY(0); }
+  }
+  .vmodal-inner video{
+    display:block; width:100%;
+    aspect-ratio:9/16; object-fit:cover;
+    background:#000;
+  }
+  .vmodal-close{
+    position:absolute; top:.75rem; right:.75rem;
+    width:34px; height:34px; border-radius:50%;
+    background:rgba(0,0,0,.55); color:#fff;
+    font-size:1.1rem; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    border:1.5px solid rgba(255,255,255,.3);
+    z-index:2; cursor:pointer;
+    transition:.15s var(--ease);
+  }
+  .vmodal-close:hover{ background:rgba(0,0,0,.8); }
+  .vmodal-mute{
+    position:absolute; bottom:.75rem; right:.75rem;
+    width:34px; height:34px; border-radius:50%;
+    background:rgba(0,0,0,.55); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    border:1.5px solid rgba(255,255,255,.3);
+    z-index:2; cursor:pointer;
+    transition:.15s var(--ease);
+  }
+  .vmodal-mute:hover{ background:rgba(0,0,0,.8); }
+  .vmodal-mute svg{ width:14px; height:14px; }
 
 </style>
 </head>
@@ -176,8 +229,8 @@
       <a href="#contact" class="btn btn-fill hero-cta">Get in touch &rarr;</a>
     </div>
     <div class="hero-video vcard reveal">
-      <div class="vframe" onclick="toggleMuteFrame(this)">
-        <video src="Content/IntoReel01_music.mp4" autoplay muted loop playsinline></video>
+      <div class="vframe" onclick="toggleIntroMute(this)">
+        <video src="Content/IntoReel01_music.mp4" poster="Content/IntoReel01_music_poster.jpg" autoplay muted loop playsinline></video>
         <span class="vtag">Intro</span>
         <button class="mute-btn" aria-label="Toggle sound">
           <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -193,80 +246,56 @@
     <h2>Tech &amp; AI</h2>
     <div class="grid">
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_01.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_01.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_01.mp4" poster="Content/Reel_01_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">01</span>
           <span class="vtag">Talking Head</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">Claude</div><div class="vcard-hook is-filled">"Interview first. Always."</div></div>
       </div>
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_02.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_02.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_02.mp4" poster="Content/Reel_02_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">02</span>
           <span class="vtag">Talking Head</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">ElevenLabs</div><div class="vcard-hook is-filled">"The voiceover I didn't record myself."</div></div>
       </div>
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_03.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_03.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_03.mp4" poster="Content/Reel_03_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">03</span>
           <span class="vtag">Talking Head</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">Claude</div><div class="vcard-hook is-filled">"By now I run every brief through Claude."</div></div>
       </div>
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_04.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_04.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_04.mp4" poster="Content/Reel_04_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">04</span>
           <span class="vtag">Talking Head</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">OpenArt</div><div class="vcard-hook is-filled">"I generated the illustration - and it's in the final cut."</div></div>
       </div>
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_05_music.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_05_music.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_05_music.mp4" poster="Content/Reel_05_music_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">05</span>
           <span class="vtag">Text Overlay</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">Claude - Research</div><div class="vcard-hook is-filled">"My research process. With Claude."</div></div>
       </div>
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_09_music.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_09_music.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_09_music.mp4" poster="Content/Reel_09_music_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">06</span>
           <span class="vtag">Text Overlay</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">Gling</div><div class="vcard-hook is-filled">"1.5 hours of raw footage. Gling handled it."</div></div>
       </div>
@@ -280,41 +309,29 @@
     <h2>Outdoor &amp; Adventure</h2>
     <div class="grid">
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_06_music.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_06_music.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_06_music.mp4" poster="Content/Reel_06_music_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">01</span>
           <span class="vtag">VO on B-Roll</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">Komoot</div><div class="vcard-hook is-filled">"What I don't love is the hour before."</div></div>
       </div>
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel_08_music.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel_08_music.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel_08_music.mp4" poster="Content/Reel_08_music_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">02</span>
           <span class="vtag">VO on B-Roll</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">Hydro Flask</div><div class="vcard-hook is-filled">"When I go to the mountains, only essentials."</div></div>
       </div>
 
-      <div class="vcard">
-        <div class="vframe" onclick="toggleMuteFrame(this)">
-          <video src="Content/Reel10_music.mp4" muted loop playsinline></video>
+      <div class="vcard" onclick="openModal('Content/Reel10_music.mp4')">
+        <div class="vframe">
+          <video src="Content/Reel10_music.mp4" poster="Content/Reel10_music_poster.jpg" muted loop playsinline preload="none"></video>
           <span class="vindex">03</span>
           <span class="vtag">Text Overlay</span>
-          <button class="mute-btn" aria-label="Toggle sound">
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
-          </button>
         </div>
         <div class="vcard-meta"><div class="vcard-brand">Komoot</div><div class="vcard-hook is-filled">"The usual plan vs. the new plan."</div></div>
       </div>
@@ -376,12 +393,27 @@
   <span id="clock">Veneto, Italy - CET --:--</span>
 </div>
 
+<!-- Video modal -->
+<div class="vmodal" id="vmodal" role="dialog" aria-modal="true">
+  <div class="vmodal-backdrop" id="vmodalBackdrop"></div>
+  <div class="vmodal-inner">
+    <video id="vmodalVideo" loop playsinline></video>
+    <button class="vmodal-close" id="vmodalClose" aria-label="Close">&times;</button>
+    <button class="vmodal-mute" id="vmodalMute" aria-label="Toggle sound">
+      <svg viewBox="0 0 16 16" fill="currentColor" id="vmodalIconMuted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 16 16" fill="currentColor" id="vmodalIconUnmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+    </button>
+  </div>
+</div>
+
 <script>
+  /* ── Reveal on scroll ── */
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
   }, { threshold:.12 });
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+  /* ── Clock ── */
   function tickClock(){
     const el = document.getElementById('clock');
     if(!el) return;
@@ -389,65 +421,72 @@
     const cet = new Intl.DateTimeFormat('en-GB',{ timeZone:'Europe/Rome', hour:'2-digit', minute:'2-digit', hour12:false }).format(now);
     el.textContent = 'Veneto, Italy - CET ' + cet;
   }
-  tickClock();
-  setInterval(tickClock, 30000);
+  tickClock(); setInterval(tickClock, 30000);
 
-  function stopVideo(frame) {
-    const video = frame.querySelector('video');
-    if (!video || video.hasAttribute('autoplay')) return;
-    video.pause();
-    video.muted = true;
-    video.currentTime = 0;
-    const iconMuted = frame.querySelector('.icon-muted');
-    const iconUnmuted = frame.querySelector('.icon-unmuted');
-    if (iconMuted) iconMuted.style.display = '';
-    if (iconUnmuted) iconUnmuted.style.display = 'none';
-  }
-
-  function toggleMuteFrame(frame) {
+  /* ── Intro video mute toggle ── */
+  function toggleIntroMute(frame) {
     const video = frame.querySelector('video');
     if (!video) return;
-    // Intro video (autoplay): toggle mute, stop any playing grid video
-    if (video.hasAttribute('autoplay')) {
-      video.muted = !video.muted;
-      if (!video.muted) {
-        // Stop any playing grid video when intro unmutes
-        document.querySelectorAll('.vframe').forEach(f => { if (f !== frame) stopVideo(f); });
-        video.play();
-      }
-    } else {
-      if (video.paused) {
-        // Stop all other videos (including intro)
-        document.querySelectorAll('.vframe').forEach(f => {
-          if (f === frame) return;
-          const v = f.querySelector('video');
-          if (!v) return;
-          if (v.hasAttribute('autoplay')) {
-            // Pause the intro video
-            v.pause();
-            v.muted = true;
-            const im = f.querySelector('.icon-muted');
-            const iu = f.querySelector('.icon-unmuted');
-            if (im) im.style.display = '';
-            if (iu) iu.style.display = 'none';
-          } else {
-            stopVideo(f);
-          }
-        });
-        video.play();
-        video.muted = false;
-      } else {
-        video.pause();
-        video.muted = true;
-        video.currentTime = 0;
+    video.muted = !video.muted;
+    if (!video.muted) video.play();
+    frame.querySelector('.icon-muted').style.display  = video.muted ? '' : 'none';
+    frame.querySelector('.icon-unmuted').style.display = video.muted ? 'none' : '';
+  }
+
+  /* ── Video modal ── */
+  const vmodal      = document.getElementById('vmodal');
+  const vmodalVideo = document.getElementById('vmodalVideo');
+  const vmodalClose = document.getElementById('vmodalClose');
+  const vmodalBackdrop = document.getElementById('vmodalBackdrop');
+  const vmodalMute  = document.getElementById('vmodalMute');
+  const iconMuted   = document.getElementById('vmodalIconMuted');
+  const iconUnmuted = document.getElementById('vmodalIconUnmuted');
+
+  function openModal(src) {
+    // Pause intro video while modal is open
+    const introVideo = document.querySelector('.hero-video video');
+    if (introVideo && !introVideo.paused) {
+      introVideo.pause();
+      const introFrame = introVideo.closest('.vframe');
+      if (introFrame) {
+        introFrame.querySelector('.icon-muted').style.display  = '';
+        introFrame.querySelector('.icon-unmuted').style.display = 'none';
       }
     }
-    const iconMuted = frame.querySelector('.icon-muted');
-    const iconUnmuted = frame.querySelector('.icon-unmuted');
-    const isMuted = video.muted || video.paused;
-    if (iconMuted) iconMuted.style.display = isMuted ? '' : 'none';
-    if (iconUnmuted) iconUnmuted.style.display = isMuted ? 'none' : '';
+    vmodalVideo.src = src;
+    vmodalVideo.muted = false;
+    vmodalVideo.play().catch(() => {
+      // Autoplay with sound blocked - play muted
+      vmodalVideo.muted = true;
+      vmodalVideo.play();
+    });
+    updateModalMuteIcon();
+    vmodal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
   }
+
+  function closeModal() {
+    vmodalVideo.pause();
+    vmodalVideo.src = '';
+    vmodal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    // Resume intro video
+    const introVideo = document.querySelector('.hero-video video');
+    if (introVideo) introVideo.play().catch(()=>{});
+  }
+
+  function updateModalMuteIcon() {
+    iconMuted.style.display   = vmodalVideo.muted ? '' : 'none';
+    iconUnmuted.style.display = vmodalVideo.muted ? 'none' : '';
+  }
+
+  vmodalClose.addEventListener('click', closeModal);
+  vmodalBackdrop.addEventListener('click', closeModal);
+  vmodalMute.addEventListener('click', () => {
+    vmodalVideo.muted = !vmodalVideo.muted;
+    updateModalMuteIcon();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 
 </body>
