@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elena Evdokimova — UGC Creator</title>
+<meta name="description" content="UGC for SaaS, AI tools, and outdoor brands. Talking-head, B-roll, and screen-capture content in English, with Italian available.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+
+  /* ============ TOKENS ============ */
+  :root{
+    --paper:#F2EEE3;        /* page ground - warm stone-cream */
+    --card:#FBF8F1;         /* lifted card surface */
+    --card-deep:#EAE3D2;    /* recessed / placeholder fill */
+    --ink:#221E17;          /* primary text - warm near-black */
+    --ink-soft:#74695A;     /* secondary text */
+    --ink-faint:#A39C8A;    /* tertiary / placeholder text */
+    --tech:#3E6B5F;         /* Tech & AI accent - pine */
+    --outdoor:#A35C32;      /* Outdoor & Adventure accent - clay */
+    --line: rgba(34,30,23,.14);
+    --line-strong: rgba(34,30,23,.26);
+    --r-s:8px; --r-m:18px; --r-l:32px;
+    --display:'Schibsted Grotesk', sans-serif;
+    --serif:'Instrument Serif', serif;
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+
+  /* ============ RESET ============ */
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--paper); color:var(--ink); font-family:var(--display);
+    font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
+    position:relative; overflow-x:hidden;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font:inherit; color:inherit; background:none; border:none; cursor:pointer; }
+  section,header[id]{ scroll-margin-top:24px; position:relative; }
+  ::selection{ background:var(--tech); color:var(--card); }
+
+  body::before{
+    content:''; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.035; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .container{ max-width:1180px; margin-inline:auto; padding-inline:clamp(1.25rem,4vw,3rem); position:relative; z-index:2; }
+  .eyebrow{ font-weight:600; font-size:.7rem; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-faint); }
+  h1,h2,h3{ font-family:var(--display); font-weight:700; line-height:1.08; letter-spacing:-.015em; }
+  i, em{ font-family:var(--serif); font-style:italic; font-weight:400; }
+
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .75s var(--ease), transform .75s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } .reveal{ opacity:1; transform:none; } }
+  :focus-visible{ outline:2px solid var(--tech); outline-offset:3px; border-radius:2px; }
+
+  /* ============ BUTTONS ============ */
+  .btn{ font-family:var(--display); font-weight:600; font-size:.86rem; padding:.62rem 1.25rem; border-radius:999px; transition:.25s var(--ease); display:inline-flex; align-items:center; gap:.5rem; }
+  .btn-fill{ background:var(--ink); color:var(--paper); }
+  .btn-fill:hover{ background:var(--tech); transform:translateY(-2px); }
+  .btn-outline{ border:1.5px solid var(--line-strong); color:var(--ink); }
+  .btn-outline:hover{ border-color:var(--tech); color:var(--tech); }
+
+  /* ============ VIDEO CARD ============ */
+  .vframe{
+    position:relative; aspect-ratio:9/16; border-radius:var(--r-m);
+    background:linear-gradient(160deg, var(--card), var(--card-deep));
+    border:1px solid var(--line); overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 1px 2px rgba(34,30,23,.05);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+    cursor:pointer;
+  }
+  .vframe video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; border-radius:inherit;
+  }
+  .vcard:hover .vframe, .hero-video:hover .vframe{ transform:translateY(-6px); box-shadow:0 22px 40px -22px rgba(34,30,23,.35); }
+  .mute-btn{
+    position:absolute; bottom:.85rem; right:.85rem;
+    width:36px; height:36px; border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.55);
+    background:rgba(34,30,23,.45); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; transition:.2s var(--ease); z-index:3;
+  }
+  .mute-btn:hover{ background:rgba(34,30,23,.7); }
+  .mute-btn svg{ width:14px; height:14px; }
+  .play-btn{ width:46px; height:46px; border-radius:50%; border:1.5px solid currentColor; display:flex; align-items:center; justify-content:center; color:var(--ink-faint); }
+  .play-btn svg{ width:13px; margin-left:2px; }
+  .vindex{ position:absolute; top:.85rem; left:.95rem; font-weight:600; font-size:.72rem; color:rgba(255,255,255,.75); z-index:3; }
+  .vtag{
+    position:absolute; top:.85rem; right:.85rem;
+    font-size:.6rem; letter-spacing:.07em; text-transform:uppercase;
+    padding:.3rem .55rem; border-radius:999px; color:#fff; font-weight:600;
+    background:rgba(0,0,0,.45); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+    z-index:3;
+  }
+
+  .vcard-meta{ margin-top:.85rem; }
+  .vcard-brand{ font-weight:600; font-size:1rem; }
+  .vcard-hook{ font-family:var(--serif); font-style:italic; color:var(--ink-faint); font-size:.98rem; margin-top:.2rem; }
+  .vcard-hook.is-filled{ color:var(--ink-soft); }
+
+  /* ============ HERO ============ */
+  .hero{ padding-block:clamp(3.5rem,9vw,6rem) clamp(4rem,8vw,6rem); }
+  .hero-grid{ display:grid; grid-template-columns:1.3fr .8fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+  .hero-name{ font-weight:600; font-size:.95rem; color:var(--ink); margin-bottom:.5rem; }
+  .hero-loc{ display:block; font-size:.78rem; font-weight:400; color:var(--ink-faint); margin-top:.2rem; }
+  .hero-headline{ font-size:clamp(2.2rem,4.4vw,3.5rem); }
+  .hero-sub{ margin-top:1.3rem; max-width:46ch; color:var(--ink-soft); font-size:1.05rem; }
+  .hero-cta{ margin-top:2rem; }
+  .hero-video .vframe{ max-width:250px; margin-inline:auto; }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; } .hero-video{ order:-1; } }
+
+  /* ============ WORK ============ */
+  .lane-section{ padding-block:clamp(4rem,8vw,6.5rem); }
+  .lane-section[data-lane="outdoor"]{ border-top:1px solid var(--line); }
+  .lane-section h2{ font-size:clamp(1.8rem,3.2vw,2.4rem); margin-bottom:2.25rem; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(185px,1fr)); gap:clamp(1.2rem,2.5vw,1.85rem); }
+
+  /* ============ ABOUT ============ */
+  .about{ padding-block:clamp(4rem,8vw,6.5rem); border-top:1px solid var(--line); }
+  .about-grid{ display:grid; grid-template-columns:.76fr 1.24fr; gap:clamp(2.25rem,5vw,4.5rem); align-items:start; }
+  .photo-frame{
+    aspect-ratio:4/5; border-radius:var(--r-m); border:1px solid var(--line);
+    background:linear-gradient(155deg, var(--card), var(--card-deep));
+    box-shadow:0 1px 2px rgba(34,30,23,.05);
+    overflow:hidden;
+  }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .about h2{ font-size:clamp(1.8rem,3.2vw,2.4rem); margin-bottom:1.4rem; }
+  .about-lead{ font-family:var(--serif); font-style:italic; font-size:1.35rem; color:var(--ink); line-height:1.3; max-width:30ch; }
+  .about-bio{ font-size:1.04rem; color:var(--ink-soft); max-width:56ch; margin-top:1.1rem; }
+  .chips{ display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.7rem; }
+  .chip{ border:1px solid var(--line-strong); padding:.42rem .9rem; border-radius:999px; font-weight:600; font-size:.72rem; letter-spacing:.02em; color:var(--ink-soft); }
+  @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; } .photo-frame{ max-width:280px; } }
+
+  /* ============ PROCESS + RATES ============ */
+  .process{ padding-block:clamp(4rem,8vw,6.5rem); border-top:1px solid var(--line); }
+  .process h2{ font-size:clamp(1.8rem,3.2vw,2.4rem); margin-top:.5rem; }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:2.5rem; }
+  .step{ border-top:1px solid var(--line-strong); padding-top:1rem; }
+  .step .num{ font-weight:600; color:var(--ink-faint); font-size:.82rem; letter-spacing:.03em; }
+  .step h3{ font-weight:600; font-size:1rem; margin-block:.45rem .35rem; }
+  .step p{ font-size:.87rem; color:var(--ink-soft); }
+  .rate-row{ margin-top:2.75rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.2rem; padding:1.5rem clamp(1.25rem,3vw,2rem); background:var(--card); border:1px solid var(--line); border-radius:var(--r-m); }
+  .rate-left .label{ font-weight:600; font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-faint); }
+  .rate-value{ font-weight:700; font-size:1.55rem; margin-top:.25rem; }
+  .rate-note{ font-size:.85rem; color:var(--ink-soft); text-align:left; }
+  @media (max-width:760px){ .steps{ grid-template-columns:1fr 1fr; } .rate-note{ text-align:left; } }
+  @media (max-width:480px){ .steps{ grid-template-columns:1fr; } }
+
+  /* ============ CONTACT ============ */
+  .contact{ padding-block:clamp(5rem,10vw,7.5rem); text-align:center; border-top:1px solid var(--line); }
+  .contact h2{ font-size:clamp(1.8rem,3.2vw,2.4rem); }
+  .contact-actions{ display:flex; gap:.85rem; justify-content:center; margin-top:1.9rem; flex-wrap:wrap; }
+  .contact-email{ display:block; margin-top:1.5rem; font-size:.85rem; color:var(--ink-faint); }
+
+  .foot{ padding-block:1.5rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+  .foot, .foot a{ font-size:.7rem; color:var(--ink-faint); letter-spacing:.03em; }
+
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <div class="hero-name">Elena Evdokimova<span class="hero-loc">Veneto, Italy</span></div>
+      <h1 class="hero-headline">UGC for SaaS, AI tools, and outdoor brands.</h1>
+      <p class="hero-sub">Talking-head, B-roll, or screen-capture - shot and edited by a motion designer, in English (Italian available).</p>
+      <a href="#contact" class="btn btn-fill hero-cta">Get in touch &rarr;</a>
+    </div>
+    <div class="hero-video vcard reveal">
+      <div class="vframe" onclick="toggleMuteFrame(this)">
+        <video src="Content/IntoReel01_music.mp4" autoplay muted loop playsinline></video>
+        <span class="vtag">Intro</span>
+        <button class="mute-btn" aria-label="Toggle sound">
+          <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="lane-section reveal" data-lane="tech" id="tech">
+  <div class="container">
+    <h2>Tech &amp; AI</h2>
+    <div class="grid">
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_01.mp4" muted loop playsinline></video>
+          <span class="vindex">01</span>
+          <span class="vtag">Talking Head</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">Claude</div><div class="vcard-hook is-filled">"Interview first. Always."</div></div>
+      </div>
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_02.mp4" muted loop playsinline></video>
+          <span class="vindex">02</span>
+          <span class="vtag">Talking Head</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">ElevenLabs</div><div class="vcard-hook is-filled">"The voiceover I didn't record myself."</div></div>
+      </div>
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_03.mp4" muted loop playsinline></video>
+          <span class="vindex">03</span>
+          <span class="vtag">Talking Head</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">Claude</div><div class="vcard-hook is-filled">"By now I run every brief through Claude."</div></div>
+      </div>
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_04.mp4" muted loop playsinline></video>
+          <span class="vindex">04</span>
+          <span class="vtag">Talking Head</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">OpenArt</div><div class="vcard-hook is-filled">"I generated the illustration - and it's in the final cut."</div></div>
+      </div>
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_05_music.mp4" muted loop playsinline></video>
+          <span class="vindex">05</span>
+          <span class="vtag">Text Overlay</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">Claude - Research</div><div class="vcard-hook is-filled">"My research process. With Claude."</div></div>
+      </div>
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_09_music.mp4" muted loop playsinline></video>
+          <span class="vindex">06</span>
+          <span class="vtag">Text Overlay</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">Gling</div><div class="vcard-hook is-filled">"1.5 hours of raw footage. Gling handled it."</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="lane-section reveal" data-lane="outdoor" id="outdoor">
+  <div class="container">
+    <h2>Outdoor &amp; Adventure</h2>
+    <div class="grid">
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_06_music.mp4" muted loop playsinline></video>
+          <span class="vindex">01</span>
+          <span class="vtag">VO on B-Roll</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">Komoot</div><div class="vcard-hook is-filled">"What I don't love is the hour before."</div></div>
+      </div>
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel_08_music.mp4" muted loop playsinline></video>
+          <span class="vindex">02</span>
+          <span class="vtag">VO on B-Roll</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">Hydro Flask</div><div class="vcard-hook is-filled">"When I go to the mountains, only essentials."</div></div>
+      </div>
+
+      <div class="vcard">
+        <div class="vframe" onclick="toggleMuteFrame(this)">
+          <video src="Content/Reel10_music.mp4" muted loop playsinline></video>
+          <span class="vindex">03</span>
+          <span class="vtag">Text Overlay</span>
+          <button class="mute-btn" aria-label="Toggle sound">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-muted"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47z" opacity=".4"/><line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="icon-unmuted" style="display:none"><path d="M9 2L5 6H2v4h3l4 4V2zM13.5 8c0-1.77-.77-3.37-2-4.47v8.94c1.23-1.1 2-2.7 2-4.47zM11.5 8c0-.77-.34-1.47-.88-1.95v3.9c.54-.48.88-1.18.88-1.95z"/></svg>
+          </button>
+        </div>
+        <div class="vcard-meta"><div class="vcard-brand">Komoot</div><div class="vcard-hook is-filled">"The usual plan vs. the new plan."</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div class="photo-frame reveal">
+      <img src="Content/About_Section_Portrait.png" alt="Elena Evdokimova">
+    </div>
+    <div class="reveal">
+      <h2>About</h2>
+      <p class="about-lead">A motion designer who turned curiosity into footage.</p>
+      <p class="about-bio">I'm Elena - a motion designer who turned a habit of testing every new AI tool into a second skill: making that footage actually worth watching. Building explainer videos for SaaS teams taught me pacing and structure; time on actual trails taught me what makes outdoor content feel true instead of staged.</p>
+      <div class="chips">
+        <span class="chip">Motion design background</span>
+        <span class="chip">Hands-on AI fluency</span>
+        <span class="chip">English &amp; Italian</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="container">
+    <span class="eyebrow reveal">How this works</span>
+    <h2 class="reveal">Brief to delivery</h2>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01</div><h3>Brief &amp; concept</h3><p>Send the brief, get a hook and shot list back within a couple of days.</p></div>
+      <div class="step reveal"><div class="num">02</div><h3>Shoot</h3><p>Talking-head, B-roll, or screen-capture, filmed to match the brief.</p></div>
+      <div class="step reveal"><div class="num">03</div><h3>Edit</h3><p>Paced, captioned, finished with a motion-design pass.</p></div>
+      <div class="step reveal"><div class="num">04</div><h3>Deliver</h3><p>Master file plus any caption or hook variants you need.</p></div>
+    </div>
+    <div class="rate-row reveal">
+      <div class="rate-left"><div class="label">Per video</div><div class="rate-value">From &euro;250</div></div>
+      <div class="rate-note">Rate depends on format, length, and deliverables.<br>Whitelisting and paid-ad usage priced separately.</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="eyebrow reveal">Contact</span>
+    <h2 class="reveal">Got a brief?</h2>
+    <div class="contact-actions reveal">
+      <a href="mailto:elena@kimova.studio" class="btn btn-fill">Get in touch &nearr;</a>
+      <a href="https://www.instagram.com/evdokele_/" target="_blank" rel="noopener" class="btn btn-outline">Instagram &nearr;</a>
+      <a href="https://www.tiktok.com/@elena.evdo" target="_blank" rel="noopener" class="btn btn-outline">TikTok &nearr;</a>
+    </div>
+    <span class="contact-email reveal">elena@kimova.studio</span>
+  </div>
+</section>
+
+<div class="container foot">
+  <span>Elena Evdokimova - UGC Creator - Veneto, Italy</span>
+  <span id="clock">Veneto, Italy - CET --:--</span>
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold:.12 });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  function tickClock(){
+    const el = document.getElementById('clock');
+    if(!el) return;
+    const now = new Date();
+    const cet = new Intl.DateTimeFormat('en-GB',{ timeZone:'Europe/Rome', hour:'2-digit', minute:'2-digit', hour12:false }).format(now);
+    el.textContent = 'Veneto, Italy - CET ' + cet;
+  }
+  tickClock();
+  setInterval(tickClock, 30000);
+
+  function stopVideo(frame) {
+    const video = frame.querySelector('video');
+    if (!video || video.hasAttribute('autoplay')) return;
+    video.pause();
+    video.muted = true;
+    video.currentTime = 0;
+    const iconMuted = frame.querySelector('.icon-muted');
+    const iconUnmuted = frame.querySelector('.icon-unmuted');
+    if (iconMuted) iconMuted.style.display = '';
+    if (iconUnmuted) iconUnmuted.style.display = 'none';
+  }
+
+  function toggleMuteFrame(frame) {
+    const video = frame.querySelector('video');
+    if (!video) return;
+    // Intro video (autoplay): toggle mute, stop any playing grid video
+    if (video.hasAttribute('autoplay')) {
+      video.muted = !video.muted;
+      if (!video.muted) {
+        // Stop any playing grid video when intro unmutes
+        document.querySelectorAll('.vframe').forEach(f => { if (f !== frame) stopVideo(f); });
+        video.play();
+      }
+    } else {
+      if (video.paused) {
+        // Stop all other videos (including intro)
+        document.querySelectorAll('.vframe').forEach(f => {
+          if (f === frame) return;
+          const v = f.querySelector('video');
+          if (!v) return;
+          if (v.hasAttribute('autoplay')) {
+            // Pause the intro video
+            v.pause();
+            v.muted = true;
+            const im = f.querySelector('.icon-muted');
+            const iu = f.querySelector('.icon-unmuted');
+            if (im) im.style.display = '';
+            if (iu) iu.style.display = 'none';
+          } else {
+            stopVideo(f);
+          }
+        });
+        video.play();
+        video.muted = false;
+      } else {
+        video.pause();
+        video.muted = true;
+        video.currentTime = 0;
+      }
+    }
+    const iconMuted = frame.querySelector('.icon-muted');
+    const iconUnmuted = frame.querySelector('.icon-unmuted');
+    const isMuted = video.muted || video.paused;
+    if (iconMuted) iconMuted.style.display = isMuted ? '' : 'none';
+    if (iconUnmuted) iconUnmuted.style.display = isMuted ? 'none' : '';
+  }
+</script>
+
+</body>
+</html>
